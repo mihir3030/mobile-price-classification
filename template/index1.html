@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mobile Price Prediction</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style type="text/css">
+*{margin:0;padding:0;box-sizing:border-box}body,html{height:100%;font-family:Poppins-Regular,sans-serif}a{font-family:Poppins-Regular;font-size:14px;line-height:1.7;color:#666;margin:0;transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s}a:focus{outline:0!important}a:hover{text-decoration:none}h1,h2,h3,h4,h5,h6{margin:0}input{outline:0;border:none}input:focus::-webkit-input-placeholder{color:transparent}input:focus:-moz-placeholder{color:transparent}input:focus::-moz-placeholder{color:transparent}input:focus:-ms-input-placeholder{color:transparent}input::-webkit-input-placeholder{color:#adadad}input:-moz-placeholder{color:#adadad}input::-moz-placeholder{color:#adadad}input:-ms-input-placeholder{color:#adadad}button{outline:0!important;border:none;background:0 0}button:hover{cursor:pointer}.container{max-width:1200px}.container-contact100{width:100%;min-height:100vh;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:15px;background:#a64bf4;background:-webkit-linear-gradient(45deg,#00dbde,#fc00ff);background:-o-linear-gradient(45deg,#00dbde,#fc00ff);background:-moz-linear-gradient(45deg,#00dbde,#fc00ff);background:linear-gradient(45deg,#00dbde,#fc00ff)}.wrap-contact100{width:500px;background:#fff;border-radius:10px;overflow:hidden;padding:42px 55px 45px 55px}.contact100-form{width:100%}.contact100-form-title{display:block;font-family:Poppins-Bold;font-size:39px;color:#333;line-height:1.2;text-align:center;padding-bottom:10px}.wrap-input100{width:100%;position:relative;border-bottom:2px solid #d9d9d9;padding-bottom:10px;margin-bottom:15px}.input100{display:block;width:100%;background:0 0;font-family:Poppins-Medium;font-size:18px;color:#333;line-height:1.2;padding:0 5px}.focus-input100{position:absolute;display:block;width:100%;height:100%;top:0;left:0;pointer-events:none}.focus-input100::before{content:"";display:block;position:absolute;bottom:-2px;left:0;width:0;height:2px;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s;background:#7f7f7f}input.input100{height:40px}.input100:focus+.focus-input100::before{width:100%}.has-val.input100+.focus-input100::before{width:100%}.container-contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;padding-top:13px}.wrap-contact100-form-btn{width:100%;display:block;position:relative;z-index:1;border-radius:25px;overflow:hidden;margin:0 auto}.contact100-form-bgbtn{position:absolute;z-index:-1;width:300%;height:100%;background:#a64bf4;background:-webkit-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:-o-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:-moz-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);top:0;left:-100%;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;justify-content:center;align-items:center;padding:0 20px;width:100%;height:50px;font-family:Poppins-Medium;font-size:16px;color:#fff;line-height:1.2}.wrap-contact100-form-btn:hover .contact100-form-bgbtn{left:0}.contact100-form-btn i{-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.contact100-form-btn:hover i{-webkit-transform:translateX(10px);-moz-transform:translateX(10px);-ms-transform:translateX(10px);-o-transform:translateX(10px);transform:translateX(10px)}@media (max-width:576px){.wrap-contact100{padding:72px 15px 65px 15px}}.wrap-contact100{width:800px;background:#fff;border-radius:10px;overflow:hidden;padding:42px 55px 45px 55px}.contact100-form-title{font-size:26px}
+</style>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form" action="{{ url_for('predict')}}" method="POST" >
+				<span class="contact100-form-title" style="font-size:32px">Artificial Intelligence Mobile Price Prediction</span>
+				
+				<span class="contact100-form-title" id="output" style="color: #ff0000;" >
+					{{prediction}}
+					
+				</span>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Battery Power</span>
+					<input class="input100" type="text" id="battery_power" name="battery_power" placeholder="Battery Power">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Bluetooth</span>
+					<select  class="input100" id="blue" name="blue" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does mobile has Bluetooth</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Clock Speed</span>
+					<input class="input100" type="text" id="clock_speed" name="clock_speed" placeholder="Clock Speed">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Dual SIM</span>
+					<select  class="input100" id="dual_sim" name="dual_sim" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does Mobile has Dual SIM</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+								
+				<div class="wrap-input100 " >
+					<span class="label-input100">Front Camera</span>
+					<input class="input100" type="text" id="fc" name="fc" placeholder="Front Camera">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Four-G</span>
+					<select  class="input100" id="four_g" name="four_g" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does Mobile has Four-G</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 " >
+					<span class="label-input100">Internal Memory (In Giga bytes)</span>
+					<input class="input100" type="text" id="int_memory" name="int_memory" placeholder="Internal Memory">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Mobile Depth</span>
+					<input class="input100" type="text" id="m_dep" name="m_dep" placeholder="Mobile Depth">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Weight of Mobile Phone</span>
+					<input class="input100" type="text" id="mobile_wt" name="mobile_wt" placeholder="Weight of Mobile Phone">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Number of cores of processor</span>
+					<input class="input100" type="text" id="n_cores" name="n_cores" placeholder="Internal Memory">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Primary Camera Mega Pixels</span>
+					<input class="input100" type="text" id="pc" name="pc" placeholder="Primary Camera Mega Pixels">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Pixel Resolution Height</span>
+					<input class="input100" type="text" id="px_height" name="px_height" placeholder="Pixel Resolution Height">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Pixel Resolution Width</span>
+					<input class="input100" type="text" id="px_width" name="px_width" placeholder="Pixel Resolution Width">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Random Access Memory in Megabytes</span>
+					<input class="input100" type="text" id="ram" name="ram" placeholder="Random Access Memory in Megabytes">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Screen Height of mobile in cm</span>
+					<input class="input100" type="text" id="sc_h" name="sc_h" placeholder="Screen Height of mobile in cm">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Screen Width of mobile in cm</span>
+					<input class="input100" type="text" id="sc_w" name="sc_w" placeholder="Screen Width of mobile in cm">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Talk Time</span>
+					<input class="input100" type="text" id="talk_time" name="talk_time" placeholder="Talk Time">
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="wrap-input100 " >
+					<span class="label-input100">Three-G</span>
+					<select  class="input100" id="three_g" name="three_g" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does Mobile has Three-G</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 " >
+					<span class="label-input100">Touch Screen</span>
+					<select  class="input100" id="touch_screen" name="touch_screen" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does Mobile has Touch Screen</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 " >
+					<span class="label-input100">Wifi</span>
+					<select  class="input100" id="wifi" name="wifi" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+							<option value="">Does Mobile has WIFI</option>
+							<option value="0">No</option>
+							<option value="1">Yes</option>
+						</select>
+					<span class="focus-input100"></span>
+				</div>
+				
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn" id='submit' type="submit" value="Submit">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</body>
+</html>
+
+
+
+
